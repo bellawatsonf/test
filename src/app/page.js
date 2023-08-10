@@ -1,113 +1,635 @@
-import Image from 'next/image'
+"use client";
+
+import Image from "next/image";
+import { Button, Typography, Box } from "@mui/material";
+import styles from "./page.module.css";
+import Footer from "./component/footer";
+import CountUp from "react-countup";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchSkema } from "./services/skema";
+import { fetchAsesorServices } from "./services/asesor";
 
 export default function Home() {
+  let dispatch = useDispatch();
+  let skema = useSelector((state) => state.skema.skema);
+  let asesor = useSelector((state) => state.asesor.asesor);
+
+  useEffect(() => {
+    dispatch(fetchSkema());
+    // dispatch(fetchAsesorServices());
+  }, []);
+
+  console.log(skema, "skema");
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <div className={styles["box-banner"]}>
+        <div className="container">
+          <div className="row">
+            <div className="col-12 col-xl-6">
+              <div className={styles["banner-img"]}>
+                <img
+                  className={`${styles.gambarbanner}`}
+                  src="/48362100261.png"
+                  style={{ borderRadius: "10px" }}
+                />
+              </div>
+            </div>
+            <div className="col-12 col-xl-6">
+              <div className={styles["desc-banner"]}>
+                <Typography
+                  sx={{
+                    fontSize: "52px",
+                    fontWeight: 700,
+                    paddingBottom: "10px",
+                    color: "#040924",
+                  }}
+                >
+                  Buktikan Kompetensi Melalui Sertifikasi.
+                </Typography>
+                <Typography sx={{ fontSize: "24px", color: "#040924" }}>
+                  Sertifikasi profesi bertujuan untuk memastikan kompetensi
+                  Mahasiswa yang telah didapatkan melalui proses kegiatan
+                  pembelajaran di Institut STIAMI.
+                </Typography>
+                <Button
+                  sx={{
+                    background: "#2dc3d0",
+                    borderRadius: "8px",
+                    padding: "12px 20px",
+                    color: "#040924",
+                    fontWeight: 700,
+                    marginTop: "17px",
+                    minWidth: "250px",
+                    // textTransform: "none",
+                    fontSize: "20px",
+                  }}
+                  variant="contained"
+                  color="success"
+                >
+                  Daftar
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles["inform-section"]}>
+        <div className="container">
+          <div className="row">
+            <div className="col-12 col-xl-6">
+              <div className={styles["informsection-img"]}>
+                <img
+                  className={`${styles.gambarinformsection}`}
+                  src="https://www.crayon.co/hs-fs/hubfs/PMA%20Pulse%202023_HomepageImage.png?width=542&height=450&name=PMA%20Pulse%202023_HomepageImage.png"
+                />
+              </div>
+            </div>
+            <div className="col-12 col-xl-6">
+              <div className={styles["desc-informsection"]}>
+                <Typography
+                  sx={{
+                    fontSize: "46px",
+                    lineHeight: "1.15",
+                    fontWeight: 700,
+                  }}
+                >
+                  AYO IKUT SERTIFIKASI!
+                </Typography>
+                <Typography sx={{ fontSize: "22px", paddingTop: "15px" }}>
+                  Dengan memiliki sertifikasi, individu dapat menunjukkan bahwa
+                  mereka memiliki keahlian dan pengetahuan yang diperlukan untuk
+                  bekerja dalam bidang tertentu. Sertifikasi juga dapat membantu
+                  membedakan diri dari kandidat lain dalam persaingan untuk
+                  posisi pekerjaan yang diinginkan. Banyak perusahaan menawarkan
+                  insentif finansial kepada karyawan yang memperoleh sertifikasi
+                  tertentu. Ini karena perusahaan percaya bahwa karyawan yang
+                  memiliki sertifikasi dapat memberikan nilai tambah yang lebih
+                  besar pada bisnis mereka.
+                </Typography>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles["benefit-box"]}>
+        <Typography
+          sx={{
+            fontWeight: 700,
+            color: "white",
+            fontSize: "36px",
+            textAlign: "center",
+            paddingTop: "35px",
+            paddingBottom: "35px",
+          }}
+        >
+          MANFAAT SERTIFIKASI
+        </Typography>
+        <div className="container">
+          <div className="row">
+            <div className="col-12 col-xl-4 mb-4">
+              <div className={styles["benefit-card"]}>
+                <div className={styles["benefit-img"]}>
+                  <img src="/Karir.png" />
+                </div>
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    color: "#040924",
+                    fontWeight: 600,
+                    fontSize: "24px",
+                    paddingTop: "10px",
+                  }}
+                >
+                  PENINGKATAN KARIR
+                </Typography>
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    color: "#6F7375",
+                    fontSize: "20px",
+                    paddingTop: "15px",
+                  }}
+                >
+                  Dengan memiliki sertifikasi, individu dapat menunjukkan bahwa
+                  mereka memiliki keahlian dan pengetahuan yang diperlukan untuk
+                  bekerja dalam bidang tertentu. Sertifikasi juga dapat membantu
+                  membedakan diri dari kandidat lain dalam persaingan untuk
+                  posisi pekerjaan yang diinginkan. Banyak perusahaan menawarkan
+                  insentif finansial kepada karyawan yang memperoleh sertifikasi
+                  tertentu. Ini karena perusahaan percaya bahwa karyawan yang
+                  memiliki sertifikasi dapat memberikan nilai tambah yang lebih
+                  besar pada bisnis mereka.
+                </Typography>
+                {/* <Typography
+                  sx={{
+                    textAlign: "center",
+                    fontSize: "20px",
+                    paddingTop: "25px",
+                    color: "#2dc3d0",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    transition: "all .15s ease",
+                    fontWeight: 500,
+                  }}
+                >
+                  Learn More
+                </Typography> */}
+              </div>
+            </div>
+            <div className="col-12 col-xl-4 mb-4">
+              <div className={styles["benefit-card"]}>
+                <div className={styles["benefit-img"]}>
+                  <img src="/Pengetahuan.png" />
+                </div>
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    color: "#040924",
+                    fontWeight: 600,
+                    fontSize: "24px",
+                    paddingTop: "10px",
+                  }}
+                >
+                  MENINGKATKAN KEMAMPUAN DAN KEAHLIAN
+                </Typography>
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    color: "#6F7375",
+                    fontSize: "20px",
+                    paddingTop: "15px",
+                  }}
+                >
+                  Untuk lulus sertifikasi, individu harus mempelajari materi dan
+                  konsep yang berkaitan dengan bidang tersebut. Proses belajar
+                  ini dapat membantu meningkatkan keahlian dan pengetahuan
+                  seseorang, sehingga mereka menjadi lebih efektif dalam
+                  pekerjaan mereka. Organisasi sertifikasi sering menyediakan
+                  pelatihan dan pengembangan berkelanjutan untuk memastikan
+                  bahwa individu tetap terkini dalam bidang mereka. Pelatihan
+                  ini dapat membantu individu meningkatkan keahlian dan
+                  pengetahuan mereka, sehingga mereka dapat lebih sukses dalam
+                  pekerjaan mereka.
+                </Typography>
+                {/* <Typography
+                  sx={{
+                    textAlign: "center",
+                    fontSize: "20px",
+                    paddingTop: "25px",
+                    color: "#2dc3d0",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    transition: "all .15s ease",
+                    fontWeight: 500,
+                  }}
+                >
+                  Learn More
+                </Typography> */}
+              </div>
+            </div>
+            <div className="col-12 col-xl-4 mb-4">
+              <div className={styles["benefit-card"]}>
+                <div className={styles["benefit-img"]}>
+                  <img src="Profesinalisme.png" />
+                </div>
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    color: "#040924",
+                    fontWeight: 600,
+                    fontSize: "24px",
+                    paddingTop: "10px",
+                  }}
+                >
+                  PROFESIONALITAS
+                </Typography>
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    color: "#6F7375",
+                    fontSize: "20px",
+                    paddingTop: "15px",
+                  }}
+                >
+                  Sertifikasi menunjukkan bahwa individu telah menguji kemampuan
+                  dan pengetahuan mereka secara independen oleh organisasi yang
+                  diakui oleh industri. Ini dapat membantu membuktikan bahwa
+                  seseorang memiliki keterampilan, etika, pengetahuan, bahkan
+                  kepercayaan diri yang diperlukan untuk melakukan pekerjaan
+                  dengan baik dan dapat dipercaya oleh klien dan rekan kerja.
+                </Typography>
+                {/* <Typography
+                  sx={{
+                    textAlign: "center",
+                    fontSize: "20px",
+                    paddingTop: "25px",
+                    color: "#2dc3d0",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    transition: "all .15s ease",
+                    fontWeight: 500,
+                  }}
+                >
+                  Learn More
+                </Typography> */}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      {/* <div className={styles["insight-box"]}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            // minHeight: "400px",
+            // height: "100%",
+          }}
+        >
+          <img
+            className={styles["imginsight"]}
+            src="https://www.crayon.co/hs-fs/hubfs/bg-top-pattern.png?width=2718&height=4160&name=bg-top-pattern.png"
+          />
+        </div>
+        <Box className={styles["box-infoinsight"]}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6 mb-5">
+                <div className={styles["insight-img"]}>
+                  <img src="https://www.crayon.co/hs-fs/hubfs/ProductImagery_Homepage-01.png?width=550&height=584&name=ProductImagery_Homepage-01.png" />
+                </div>
+              </div>
+              <div className="col-lg-6 mb-5">
+                <div className={styles["desc-insight"]}>
+                  <Typography sx={{ fontSize: "40px" }}>
+                    Way more data,
+                    <br />
+                    Way less time
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#040924",
+                      fontSize: "17px",
+                      paddingTop: "20px",
+                    }}
+                  >
+                    Manual research is not only time-consuming—it’s also risky.
+                    When you rely on human effort, you’re prone to missed
+                    opportunities and undetected threats.
+                    <br />
+                    <br />
+                    With Crayon, you can automatically capture your competitors’
+                    movements in real time. Tap into more than one hundred
+                    different data types across millions of competitive
+                    intelligence sources to stay on top of product updates,
+                    messaging pivots, executive team changes, and more.
+                    <br />
+                    <br />
+                    Learn more about Crayon’s approach to Competitive
+                    Intelligence and What We Track.
+                  </Typography>
+                </div>
+              </div>
+
+              <div className="col-lg-6 mb-5">
+                <div className={`${styles.forDesktop}`}>
+                  <div className={styles["desc-insight"]}>
+                    <Typography sx={{ fontSize: "40px" }}>
+                      Way more data,
+                      <br />
+                      Way less time
+                    </Typography>
+                    <Typography
+                      sx={{
+                        color: "#040924",
+                        fontSize: "17px",
+                        paddingTop: "20px",
+                      }}
+                    >
+                      Manual research is not only time-consuming—it’s also
+                      risky. When you rely on human effort, you’re prone to
+                      missed opportunities and undetected threats.
+                      <br />
+                      <br />
+                      With Crayon, you can automatically capture your
+                      competitors’ movements in real time. Tap into more than
+                      one hundred different data types across millions of
+                      competitive intelligence sources to stay on top of product
+                      updates, messaging pivots, executive team changes, and
+                      more.
+                      <br />
+                      <br />
+                      Learn more about Crayon’s approach to Competitive
+                      Intelligence and What We Track.
+                    </Typography>
+                  </div>
+                </div>
+                <div className={`${styles.forMobile}`}>
+                  <div className={styles["insight-img"]}>
+                    <img src="https://www.crayon.co/hs-fs/hubfs/ProductImagery_Homepage-01.png?width=550&height=584&name=ProductImagery_Homepage-01.png" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-lg-6 mb-5">
+                <div className={`${styles.forDesktop}`}>
+                  <div className={styles["insight-img"]}>
+                    <img src="https://www.crayon.co/hs-fs/hubfs/ProductImagery_Homepage-01.png?width=550&height=584&name=ProductImagery_Homepage-01.png" />
+                  </div>
+                </div>
+                <div className={`${styles.forMobile}`}>
+                  <div className={styles["desc-insight"]}>
+                    <Typography sx={{ fontSize: "40px" }}>
+                      Way more data,
+                      <br />
+                      Way less time
+                    </Typography>
+                    <Typography
+                      sx={{
+                        color: "#040924",
+                        fontSize: "17px",
+                        paddingTop: "20px",
+                      }}
+                    >
+                      Manual research is not only time-consuming—it’s also
+                      risky. When you rely on human effort, you’re prone to
+                      missed opportunities and undetected threats.
+                      <br />
+                      <br />
+                      With Crayon, you can automatically capture your
+                      competitors’ movements in real time. Tap into more than
+                      one hundred different data types across millions of
+                      competitive intelligence sources to stay on top of product
+                      updates, messaging pivots, executive team changes, and
+                      more.
+                      <br />
+                      <br />
+                      Learn more about Crayon’s approach to Competitive
+                      Intelligence and What We Track.
+                    </Typography>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-lg-6 mb-5">
+                <div className={styles["insight-img"]}>
+                  <img src="https://www.crayon.co/hs-fs/hubfs/ProductImagery_Homepage-01.png?width=550&height=584&name=ProductImagery_Homepage-01.png" />
+                </div>
+              </div>
+              <div className="col-lg-6 mb-5">
+                <div className={styles["desc-insight"]}>
+                  <Typography sx={{ fontSize: "40px" }}>
+                    Way more data,
+                    <br />
+                    Way less time
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#040924",
+                      fontSize: "15px",
+                      paddingTop: "20px",
+                    }}
+                  >
+                    Manual research is not only time-consuming—it’s also risky.
+                    When you rely on human effort, you’re prone to missed
+                    opportunities and undetected threats.
+                    <br />
+                    <br />
+                    With Crayon, you can automatically capture your competitors’
+                    movements in real time. Tap into more than one hundred
+                    different data types across millions of competitive
+                    intelligence sources to stay on top of product updates,
+                    messaging pivots, executive team changes, and more.
+                    <br />
+                    <br />
+                    Learn more about Crayon’s approach to Competitive
+                    Intelligence and What We Track.
+                  </Typography>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Box>
+      </div> */}
+      <div className={styles["best-product"]}>
+        <Typography
+          sx={{
+            color: "#040924",
+            fontWeight: 700,
+            fontSize: "36px",
+            textAlign: "center",
+            paddingBottom: "50px",
+          }}
+        >
+          INFO GRAFIS
+        </Typography>
+        <div className="container">
+          {/* <div className="row">
+            <div className="col col-lg-6">
+              <div className={styles["img-bestproduct"]}>
+                <img src="https://www.crayon.co/hs-fs/hubfs/guide-to-ci-cover-page.png?width=284&height=357&name=guide-to-ci-cover-page.png" />
+              </div>
+            </div>
+            <div className="col col-lg-6">
+              <div>
+                <Typography
+                  sx={{
+                    color: "#040924",
+                    fontSize: "36px",
+                    paddingBottom: "20px",
+                  }}
+                >
+                  Ujikompetensi Bla Bla
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "#6F7375;",
+                    fontSize: "17px",
+                    paddingBottom: "20px",
+                  }}
+                >
+                  With a strong competitive intelligence program, you can
+                  provide your marketing, sales, product, and executive teams
+                  with a powerful, strategic advantage. Knowing what your
+                  competitors are up to will help you beat them every time.
+                </Typography>
+              </div>
+              <div className={styles["info-bestproduct"]}>
+                <img
+                  className={styles["imgproduct"]}
+                  src="https://www.crayon.co/hs-fs/hubfs/book-gray.png?width=90&height=90&name=book-gray.png"
+                />
+                <Typography
+                  sx={{
+                    color: "#44474c",
+                    padding: "10px",
+                  }}
+                >
+                  1000 asesi
+                </Typography>
+              </div>
+            </div>
+          </div> */}
+          <div className="row">
+            <div className="col-12 col-xl-3">
+              <div className={`${styles.boxInfografis}`}>
+                <Typography
+                  sx={{
+                    color: "#040924",
+                    fontSize: "20px",
+                    fontWeight: 600,
+                    textAlign: "center",
+                  }}
+                >
+                  Skema
+                </Typography>
+                <CountUp start={0} end={skema.length} delay={0}>
+                  {({ countUpRef }) => (
+                    <Typography
+                      sx={{
+                        color: "#336666",
+                        fontSize: "70px",
+                        fontWeight: 700,
+                        textAlign: "center",
+                      }}
+                    >
+                      <span ref={countUpRef} />
+                    </Typography>
+                  )}
+                </CountUp>
+              </div>
+            </div>
+            <div className="col-12 col-xl-3">
+              <div className={`${styles.boxInfografis}`}>
+                <Typography
+                  sx={{
+                    color: "#040924",
+                    fontSize: "20px",
+                    fontWeight: 600,
+                    textAlign: "center",
+                  }}
+                >
+                  Asesor
+                </Typography>
+                <CountUp start={0} end={23} delay={0}>
+                  {({ countUpRef }) => (
+                    <Typography
+                      sx={{
+                        color: "#336666",
+                        fontSize: "70px",
+                        fontWeight: 700,
+                        textAlign: "center",
+                      }}
+                    >
+                      <span ref={countUpRef} />
+                    </Typography>
+                  )}
+                </CountUp>
+              </div>
+            </div>
+            <div className="col-12 col-xl-3">
+              <div className={`${styles.boxInfografis}`}>
+                <Typography
+                  sx={{
+                    color: "#040924",
+                    fontSize: "20px",
+                    fontWeight: 600,
+                    textAlign: "center",
+                  }}
+                >
+                  TUK
+                </Typography>
+                <CountUp start={0} end={2} delay={0}>
+                  {({ countUpRef }) => (
+                    <Typography
+                      sx={{
+                        color: "#336666",
+                        fontSize: "70px",
+                        fontWeight: 700,
+                        textAlign: "center",
+                      }}
+                    >
+                      <span ref={countUpRef} />
+                    </Typography>
+                  )}
+                </CountUp>
+              </div>
+            </div>
+            <div className="col-12 col-xl-3">
+              <div className={`${styles.boxInfografis}`}>
+                <Typography
+                  sx={{
+                    color: "#040924",
+                    fontSize: "20px",
+                    fontWeight: 600,
+                    textAlign: "center",
+                  }}
+                >
+                  Sertifikat Terbit
+                </Typography>
+                <CountUp start={0} end={32} delay={0}>
+                  {({ countUpRef }) => (
+                    <Typography
+                      sx={{
+                        color: "#336666",
+                        fontSize: "70px",
+                        fontWeight: 700,
+                        textAlign: "center",
+                      }}
+                    >
+                      <span ref={countUpRef} />
+                    </Typography>
+                  )}
+                </CountUp>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+      {/* <Footer /> */}
+    </>
+  );
 }
